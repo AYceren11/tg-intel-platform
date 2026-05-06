@@ -25,23 +25,23 @@
 
 ### 🖥️ Dashboard Overview
 Real-time monitoring of network stats, trending hashtags, and activity heatmaps.
-![Dashboard Overview](public/screenshots/dashboard.png)
+![Dashboard Overview](./public/screenshots/dashboard.png)
 
 ### 📈 In-depth Analytics
 Advanced time-series analysis and categorical distribution of message topics.
-![In-depth Analytics](public/screenshots/analytics.png)
+![In-depth Analytics](./public/screenshots/analytics.png)
 
 ### 🌐 Interaction Network
 Interactive graph visualization revealing influencer nodes and community clusters.
-![Interaction Network](public/screenshots/network.png)
+![Interaction Network](./public/screenshots/network.png)
 
 ### 📄 Intelligence Reports
 Production-ready PDF report generation with automated summaries.
-![Intelligence Reports](public/screenshots/reports.png)
+![Intelligence Reports](./public/screenshots/reports.png)
 
 ### ⚙️ System Settings & Status
 Localized interface control and real-time monitoring of backend pipelines.
-![Settings](public/screenshots/settings.png)
+![Settings](./public/screenshots/settings.png)
 
 ---
 
