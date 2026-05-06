@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model TelegramUser {
+  id           String        @id
+  username     String?
+  firstName    String?
+  lastName     String?
+  phone        String?
+  createdAt    DateTime      @default(now())
+  interactions Interaction[] @relation("UserInteractions")
+  mentionedBy  Interaction[] @relation("MentionedUser")
+  messages     Message[]
+}
+
+model Message {
+  id         Int          @id @default(autoincrement())
+  telegramId Int
+  chatId     String
+  userId     String
+  text       String?      @db.NVarChar(Max)
+  timestamp  DateTime     @default(now())
+  replyToId  Int?
+  user       TelegramUser @relation(fields: [userId], references: [id])
+  hashtags   Hashtag[]    @relation("HashtagToMessage")
+
+  @@index([timestamp])
+  @@index([chatId])
+}
+
+model Hashtag {
+  id       Int       @id @default(autoincrement())
+  tag      String    @unique
+  count    Int       @default(0)
+  lastSeen DateTime  @default(now())
+  messages Message[] @relation("HashtagToMessage")
+}
+
+model Interaction {
+  id           Int           @id @default(autoincrement())
+  sourceUserId String
+  targetUserId String?
+  type         String
+  timestamp    DateTime      @default(now())
+  sourceUser   TelegramUser  @relation("UserInteractions", fields: [sourceUserId], references: [id], onUpdate: NoAction)
+  targetUser   TelegramUser? @relation("MentionedUser", fields: [targetUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([sourceUserId, targetUserId])
+}
+
+model TrendSnapshot {
+  id         Int      @id @default(autoincrement())
+  timestamp  DateTime @default(now())
+  keyword    String
+  frequency  Int
+  growthRate Float
+  category   String?
+}
+
+model NetworkMetric {
+  id               Int      @id @default(autoincrement())
+  timestamp        DateTime @default(now())
+  userId           String
+  degreeCentrality Float
+  betweenness      Float
+  community        Int
+}
